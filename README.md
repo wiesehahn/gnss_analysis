@@ -1,5 +1,11 @@
-# gnss_analysis
-Analysis of GNSS signals received by mobile devices in university class
+# GNSS Analysis
+**Analysis of GNSS signals received by mobile devices in university class**
+
+## Data collection
+During lectures on GNSS signals data was collected using different mobile devices at 12 reference positions. The data was logged for at least 1 minute using the app "GPSLogger". 
+
+## Data analysis
+The nmea-data files are analyzed with R Software. An example report is located in \rmd.
 
 ## folder structure
 
