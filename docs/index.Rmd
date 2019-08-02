@@ -9,14 +9,29 @@ output:
     code_folding: hide
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 
+library(raster)
+library(data.table)
+library(dplyr)
+library(ggplot2)
+library(viridis)
+library(kableExtra)
+library(tmaptools)
+library(geosphere)
+library(ggmap)
+library(gganimate)
+library(tmaptools)
+library(rgdal)
+library(here)
+```
 
 
 ## Datengenerierung
 
 **Einlesen der gemessenen Daten**
-
-```r
+```{r, message=FALSE, warning=FALSE}
 # list all nmea files in directory
 file_list <- list.files(path = here("raw_data/nmea"), pattern = "*.nmea", full.names = T)
 # merge files in one dataframe
@@ -34,8 +49,7 @@ dataset <- do.call("rbind", lapply(file_list, function(x) {
 
 
 **Eingabe der Referenzdaten**
-
-```r
+```{r, message=FALSE, warning=FALSE}
 # Soll-Koordinaten (WGS84 /UTM: 32N)
 reference.data <- data.frame(
     c("S02", 566695.383, 5712524.386, 291.667, 248),
@@ -64,8 +78,7 @@ reference.data$hoehe = as.numeric(levels(reference.data$hoehe))[reference.data$h
 
 
 **Auswahl der Untersuchungsdaten**
-
-```r
+```{r, message=FALSE, warning=FALSE}
 plotnumber = "S09"
 devicetype = "SamsungGalaxyTabA"
 
@@ -80,19 +93,18 @@ dat <- dataset %>% filter(plot == plotnumber,
 ## Datenvorprozessierung
 
 **Reprojektion der Referenzdaten**
-
-```r
+```{r reference, message=FALSE, warning=FALSE}
 # project data from UTM easting northing to latlon
 ref.utm <- SpatialPointsDataFrame(coords = data.frame(reference$ostwert, reference$nordwert), 
                                   proj4string = CRS("+proj=utm +zone=32 +datum=WGS84"),
                                   data = data.frame(reference$hoehe_z, reference$hoehe))  
 reference <- spTransform(ref.utm, CRS("+proj=longlat +datum=WGS84"))
+
 ```
 
 
 **Auswahl des GPGGA Signals**
-
-```r
+```{r filter, message=FALSE, warning=FALSE}
 #filter for GGA - essential fix data which provide 3D location and accuracy data.
 GPGGA <- dat %>%
   filter(V1 == "$GPGGA") 
@@ -103,8 +115,7 @@ GPGGA <- Filter(function(x) !(all(x=="")), GPGGA)
 
 
 **Vorprozessierung der gemessenen Daten**
-
-```r
+```{r preprocess, message=FALSE, warning=FALSE}
 # rename columns based on meaning (from http://www.gpsinformation.org/dale/nmea.htm#GGA)
 names(GPGGA) = c("datatype",
                  "time",
@@ -169,8 +180,7 @@ m <- GPGGA %>%
 
 
 **Berechnung von Kennwerten**
-
-```r
+```{r analysis}
 ref_h = reference@data$reference.hoehe
 ref_N = reference@coords[2]
 ref_E = reference@coords[1]
@@ -223,8 +233,7 @@ ref_to_median = distm (x = data.frame(median(m$lon), median(m$lat)),
 
 Auszug der Datentabelle des NMEA Signals. Gefiltert nach GPS fix Daten zur Positionsbestimmung ($GPGGA).
 
-
-```r
+```{r table}
 dt <- m %>% select(-lon_direction,-lat_direction,-distance, -filename, -plot, -device) %>% filter(quality != 0)
 
 names(dt)[1] <- paste0(names(dt)[1], 
@@ -235,124 +244,9 @@ tail(dt) %>%
   footnote(symbol =  "filtered for GPS Fix Data (GPGGA)" )
 ```
 
-<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 12px; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">   </th>
-   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> datatype<sup>*</sup> </th>
-   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> time </th>
-   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> lat </th>
-   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> lon </th>
-   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> quality </th>
-   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> satellites </th>
-   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> HDOP </th>
-   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> altitude </th>
-   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> altitude_unit </th>
-   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> h_geoid </th>
-   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> h_geoid_unit </th>
-   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> checksum </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> 266 </td>
-   <td style="text-align:left;"> $GPGGA </td>
-   <td style="text-align:left;"> 2019-08-02 14:07:31 </td>
-   <td style="text-align:right;"> 51.55812 </td>
-   <td style="text-align:right;"> 9.961451 </td>
-   <td style="text-align:left;"> 1 </td>
-   <td style="text-align:right;"> 8 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 233.5 </td>
-   <td style="text-align:left;"> M </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:left;"> M </td>
-   <td style="text-align:left;"> *5B </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 267 </td>
-   <td style="text-align:left;"> $GPGGA </td>
-   <td style="text-align:left;"> 2019-08-02 14:07:32 </td>
-   <td style="text-align:right;"> 51.55812 </td>
-   <td style="text-align:right;"> 9.961451 </td>
-   <td style="text-align:left;"> 1 </td>
-   <td style="text-align:right;"> 8 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 233.5 </td>
-   <td style="text-align:left;"> M </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:left;"> M </td>
-   <td style="text-align:left;"> *59 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 268 </td>
-   <td style="text-align:left;"> $GPGGA </td>
-   <td style="text-align:left;"> 2019-08-02 14:07:33 </td>
-   <td style="text-align:right;"> 51.55812 </td>
-   <td style="text-align:right;"> 9.961451 </td>
-   <td style="text-align:left;"> 1 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 233.5 </td>
-   <td style="text-align:left;"> M </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:left;"> M </td>
-   <td style="text-align:left;"> *57 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 269 </td>
-   <td style="text-align:left;"> $GPGGA </td>
-   <td style="text-align:left;"> 2019-08-02 14:07:34 </td>
-   <td style="text-align:right;"> 51.55812 </td>
-   <td style="text-align:right;"> 9.961451 </td>
-   <td style="text-align:left;"> 1 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 233.5 </td>
-   <td style="text-align:left;"> M </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:left;"> M </td>
-   <td style="text-align:left;"> *57 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 270 </td>
-   <td style="text-align:left;"> $GPGGA </td>
-   <td style="text-align:left;"> 2019-08-02 14:07:35 </td>
-   <td style="text-align:right;"> 51.55812 </td>
-   <td style="text-align:right;"> 9.961451 </td>
-   <td style="text-align:left;"> 1 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 233.5 </td>
-   <td style="text-align:left;"> M </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:left;"> M </td>
-   <td style="text-align:left;"> *59 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 271 </td>
-   <td style="text-align:left;"> $GPGGA </td>
-   <td style="text-align:left;"> 2019-08-02 14:07:36 </td>
-   <td style="text-align:right;"> 51.55812 </td>
-   <td style="text-align:right;"> 9.961451 </td>
-   <td style="text-align:left;"> 1 </td>
-   <td style="text-align:right;"> 8 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 233.5 </td>
-   <td style="text-align:left;"> M </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:left;"> M </td>
-   <td style="text-align:left;"> *5B </td>
-  </tr>
-</tbody>
-<tfoot><tr><td style="padding: 0; border: 0;" colspan="100%">
-<sup>*</sup> filtered for GPS Fix Data (GPGGA)</td></tr></tfoot>
-</table>
-
 ### Breitengrad
 
-
-```r
+```{r plot.lat}
 m %>%
   
   ggplot()+
@@ -363,15 +257,12 @@ m %>%
   theme_bw()
 ```
 
-![](index_files/figure-html/plot.lat-1.png)<!-- -->
-
-Systematische Nordabweichung: 0.0000078 Grad  
-Die mittlere Abweichung des Breitengrads betraegt 0.87 m
+Systematische Nordabweichung: `r format(dev_sys_N, scientific=F, digits= 2)` Grad  
+Die mittlere Abweichung des Breitengrads betraegt `r format(dev_sys_N_meter, scientific=F, digits=2, nsmall= 1)` m
 
 ### Laengengrad
 
-
-```r
+```{r plot.lon}
 m %>%
   
   ggplot()+
@@ -382,15 +273,12 @@ m %>%
   theme_bw()
 ```
 
-![](index_files/figure-html/plot.lon-1.png)<!-- -->
-
-Systematische Ostabweichung: 0.000019  
-Die mittlere Abweichung des Laengengrads betraegt 1.3 m
+Systematische Ostabweichung: `r format(dev_sys_E, scientific=F, digits= 2)`  
+Die mittlere Abweichung des Laengengrads betraegt `r format(dev_sys_E_meter, scientific=F, digits=2, nsmall= 1)` m
 
 ### Hoehe (a.s.l.)
 
-
-```r
+```{r plot.alt, message=FALSE, warning=FALSE}
 m %>%
   
   ggplot()+
@@ -401,17 +289,14 @@ m %>%
   theme_bw()
 ```
 
-![](index_files/figure-html/plot.alt-1.png)<!-- -->
-
-Die systematische Hoehenabweichung betraegt -2.4 m  
+Die systematische Hoehenabweichung betraegt `r format(dev_sys_h, scientific=F, digits=2, nsmall= 1)` m  
 
 ### Position  
 
 Messungen ueberlagert auf UAV-Orthophoto  
  
 
-
-```r
+```{r otho.pos, message=FALSE, warning=FALSE}
 #load uav
 uav <- stack(here("raw_data/uav/orthomosaik.tif"))
 
@@ -432,12 +317,9 @@ plot(sp.utm, pch = 21, col="red", bg="white",  add = TRUE)
 plot(ref.utm, pch=10, col="blue", cex=1.5,  add = TRUE)
 ```
 
-![](index_files/figure-html/otho.pos-1.png)<!-- -->
-
 Aus GPS Daten geloggte Positionen im Laufe der Messungen.
 
-
-```r
+```{r anim.pos, message=FALSE, warning=FALSE}
 # bbox= c(left = median(m$lon)-(max(m$lon)-min(m$lon))/2,
 #         bottom =  median(m$lat)-(max(m$lat)-min(m$lat))/2,
 #         right = median(m$lon)+(max(m$lon)-min(m$lon))/2,
@@ -460,13 +342,10 @@ map +
   shadow_mark(alpha = 0.3, size = 2)
 ```
 
-![](index_files/figure-html/anim.pos-1.gif)<!-- -->
-
 
 ### Entfernung zum Referenzpunkt
 
-
-```r
+```{r plot.dist}
 #plot distance from reference location as histogram
 p <- ggplot(m, aes(distance)) + 
   geom_histogram(binwidth=0.5, alpha=.5, color="white")+
@@ -480,10 +359,8 @@ p <- ggplot(m, aes(distance)) +
 p
 ```
 
-![](index_files/figure-html/plot.dist-1.png)<!-- -->
-
-Systematische Horizontalabweichung: 0.000021 Grad  
-Im Mittel betraegt die Entfernung der Messungen zum Referenzpunkt 1.6 m  
-Die Abweichung zwischen Referenzpunkt und dem Median der Messung betraegt 1.7 m  
+Systematische Horizontalabweichung: `r format(dev_sys_hori, scientific=F, digits=2, nsmall= 1)` Grad  
+Im Mittel betraegt die Entfernung der Messungen zum Referenzpunkt `r format(mean(m$distance), scientific=F, digits=2, nsmall= 1)` m  
+Die Abweichung zwischen Referenzpunkt und dem Median der Messung betraegt `r format(ref_to_median, scientific=F, digits=2, nsmall= 1)` m  
 
 
