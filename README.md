@@ -30,12 +30,3 @@ The nmea-data files are analyzed with R Software. An example report is located i
 |--run_all.R
 ```
 
-
-created with
-
-```{r}
-folder_names <- c("raw_data", "output_data", "rmd", "docs", "scripts")
-
-sapply(folder_names, dir.create)
-```
-

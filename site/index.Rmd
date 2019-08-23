@@ -1,0 +1,17 @@
+---
+title: "GNSS Datenanalyse"
+output: 
+  html_document:
+    toc: false
+---
+
+# Auswertung von Positionsdaten{-}
+
+Im Rahmen einer Uebungseinheit zur GNSS-Navigation wurden Daten mittels Smartphone und Tablet aufgezeichnet. Dazu wurden an 12 Referenzpunkten im Forstbotanischen Garten Göttingens die empfangenen Rohdaten (NMEA-Signal) geloggt. Dazu wurde die App [GPS Logger for Android](https://play.google.com/store/apps/details?id=com.mendhak.gpslogger&hl=de) genutzt.  
+Die empfangenen Daten wurden für mindestens eine Minute aufgezeichnet und später zur Auswertung in R eingelesen.
+
+```{r,  echo=FALSE}
+knitr::include_graphics("https://www.reseau-teria.com/wp-content/uploads/2019/04/POSITIONNEMENT-GNSS-FOND-BLANC.png")
+```
+
+

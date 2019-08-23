@@ -1,0 +1,24 @@
+name: "GNSS Analysis"
+output_dir: "../docs"
+navbar:
+  title: "GNSS Analysis"
+  left:
+    - text: "About"
+      href: index.html
+    - text: "Map"
+      href: map.html
+    - text: "Analysis"
+      href: gnss_analysis.html
+output: 
+  html_document:
+    highlight: kate
+    fig_caption: yes
+    theme: paper
+    code_folding: hide
+    toc: true
+    toc_float: true
+    collapsed: false 
+    number_sections: true
+    css: style.css
+    includes:
+      after_body: footer.html

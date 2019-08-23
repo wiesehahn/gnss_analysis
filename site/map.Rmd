@@ -1,0 +1,85 @@
+---
+output: 
+  html_document:
+    toc: false
+---
+
+# Lage der Referenzpunkte{-}
+
+```{r, message=FALSE, warning=FALSE}
+# install and load packages
+usePackage <- function(p) 
+{
+  if (!is.element(p, installed.packages()[,1]))
+    install.packages(p, dep = TRUE)
+  require(p, character.only = TRUE)
+}
+
+usePackage("tidyverse")
+usePackage("readxl")
+usePackage("leaflet")
+usePackage("sp")
+usePackage("here")
+
+
+# read data
+reference<- read.csv(file = here("raw_data/reference_data.csv"))
+
+
+# project data from UTM easting northing to latlon
+ref.utm <- SpatialPointsDataFrame(coords = data.frame(reference$ostwert, reference$nordwert), 
+                                  proj4string = CRS("+proj=utm +zone=32 +datum=WGS84"),
+                                  data = data.frame(reference$plot, reference$hoehe_z, reference$hoehe))  
+reference <- spTransform(ref.utm, CRS("+proj=longlat +datum=WGS84"))
+
+
+# create leaflet map
+map <- leaflet() %>% 
+  ## Base groups
+  addProviderTiles(providers$Stamen.TonerLite, group = "Toner Lite") %>%
+  addProviderTiles(providers$Esri.WorldImagery, group = "Satellite Imagery") %>%
+  
+  setView(lat = mean(reference@coords[,2]), lng = mean(reference@coords[,1]), zoom = 17) %>%
+  
+  addLayersControl(
+    baseGroups = c("Toner Lite", "Satellite Imagery"),
+    options = layersControlOptions(collapsed = FALSE)
+  ) %>%
+  
+  addEasyButtonBar(
+    easyButton(
+      icon='fa-globe', title='Overview',
+      onClick=JS("function(btn, map){ map.setZoom(16);}"))
+  ) %>%
+  
+  addCircleMarkers(
+    data=reference,
+    popup = paste("PlotID: ", as.character(reference@data$reference.plot), "<br/>",
+                  "Longitude: ", (reference$reference.ostwert), "<br/>",
+                  "Latitude: ", (reference$reference.nordwert), "<br/>",
+                  "Hoehe: ", (reference@data$reference.hoehe)),
+    radius = 6,
+    stroke = T,
+    weight = 2,
+    fill = TRUE,
+    fillOpacity = 0.8,
+    color= "black",
+    opacity = 0.5,
+    clusterOptions = markerClusterOptions(
+      iconCreateFunction =JS("function(cluster) {
+                             return new L.DivIcon({
+                             html: '<div style=\"background-color:rgba(249,231,33,0.9)\"><span>' + cluster.getChildCount() + '</div><span>',
+                             className: 'marker-cluster'
+                             });}"),
+      disableClusteringAtZoom = 13,
+      spiderfyOnMaxZoom = F,
+      showCoverageOnHover = T
+    )
+  )
+
+
+
+map
+
+```
+

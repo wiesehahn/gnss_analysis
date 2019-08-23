@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #ffffff; color: #1f1c1b; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; background-color: #ffffff; color: #a0a0a0; border-right: 1px solid #a0a0a0; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #1f1c1b; background-color: #ffffff; }
+code > span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+code > span.dt { color: #0057ae; } /* DataType */
+code > span.dv { color: #b08000; } /* DecVal */
+code > span.bn { color: #b08000; } /* BaseN */
+code > span.fl { color: #b08000; } /* Float */
+code > span.cn { color: #aa5500; } /* Constant */
+code > span.ch { color: #924c9d; } /* Char */
+code > span.sc { color: #3daee9; } /* SpecialChar */
+code > span.st { color: #bf0303; } /* String */
+code > span.vs { color: #bf0303; } /* VerbatimString */
+code > span.ss { color: #ff5500; } /* SpecialString */
+code > span.im { color: #ff5500; } /* Import */
+code > span.co { color: #898887; } /* Comment */
+code > span.do { color: #607880; } /* Documentation */
+code > span.an { color: #ca60ca; } /* Annotation */
+code > span.cv { color: #0095ff; } /* CommentVar */
+code > span.ot { color: #006e28; } /* Other */
+code > span.fu { color: #644a9b; } /* Function */
+code > span.va { color: #0057ae; } /* Variable */
+code > span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #1f1c1b; } /* Operator */
+code > span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+code > span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+code > span.pp { color: #006e28; } /* Preprocessor */
+code > span.at { color: #0057ae; } /* Attribute */
+code > span.re { color: #0057ae; } /* RegionMarker */
+code > span.in { color: #b08000; } /* Information */
+code > span.wa { color: #bf0303; } /* Warning */
+code > span.al { color: #bf0303; font-weight: bold; } /* Alert */
+code > span.er { color: #bf0303; text-decoration: underline; } /* Error */
+code > span. { color: #1f1c1b; } /* Normal */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h2 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h3 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h4 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h5 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h6 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GNSS Analysis</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">About</a>
+</li>
+<li>
+  <a href="map.html">Map</a>
+</li>
+<li>
+  <a href="gnss_analysis.html">Analysis</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<div id="datengenerierung" class="section level1">
+<h1><span class="header-section-number">1</span> Datengenerierung</h1>
+<p><strong>Einlesen der gemessenen Daten</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># list all nmea files in directory</span>
+file_list &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="dt">path =</span> <span class="kw">here</span>(<span class="st">&quot;raw_data/nmea&quot;</span>), <span class="dt">pattern =</span> <span class="st">&quot;*.nmea&quot;</span>, <span class="dt">full.names =</span> T)
+<span class="co"># merge files in one dataframe</span>
+dataset &lt;-<span class="st"> </span><span class="kw">do.call</span>(<span class="st">&quot;rbind&quot;</span>, <span class="kw">lapply</span>(file_list, <span class="cf">function</span>(x) {
+  dat &lt;-<span class="st"> </span><span class="kw">read.table</span>(x, <span class="dt">header =</span> <span class="ot">FALSE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">fill =</span> <span class="ot">TRUE</span>, <span class="dt">col.names =</span> <span class="kw">paste0</span>(<span class="st">&quot;V&quot;</span>,<span class="kw">seq_len</span>(<span class="dv">26</span>)))
+  <span class="co"># add variable filename</span>
+  dat<span class="op">$</span>filename &lt;-<span class="st"> </span>tools<span class="op">::</span><span class="kw">file_path_sans_ext</span>(<span class="kw">basename</span>(x))
+  <span class="co"># add vaiable plot</span>
+  dat<span class="op">$</span>plot &lt;-<span class="st">  </span>stringr<span class="op">::</span><span class="kw">str_split</span>(<span class="kw">basename</span>(x), stringr<span class="op">::</span><span class="kw">fixed</span>(<span class="st">&quot;_&quot;</span>))[[<span class="dv">1</span>]][<span class="dv">1</span>]
+  <span class="co"># add variable device</span>
+  dat<span class="op">$</span>device &lt;-<span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_split</span>(<span class="kw">basename</span>(x), stringr<span class="op">::</span><span class="kw">fixed</span>(<span class="st">&quot;_&quot;</span>))[[<span class="dv">1</span>]][<span class="dv">2</span>]
+  dat
+}))</code></pre></div>
+<p><strong>Eingabe der Referenzdaten</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Soll-Koordinaten (WGS84 /UTM: 32N)</span>
+<span class="co"># reference.data &lt;- data.frame(</span>
+<span class="co">#     c(&quot;S02&quot;, 566695.383, 5712524.386, 291.667, 248),</span>
+<span class="co">#   c(&quot;S01&quot;, 566659.820, 5712475.392, 287.097, 244),</span>
+<span class="co">#   c(&quot;S06&quot;, 566668.336, 5712380.944, 283.004, 239),</span>
+<span class="co">#   c(&quot;S08&quot;, 566747.805, 5712315.910, 284.097, 241),</span>
+<span class="co">#   c(&quot;S09&quot;, 566650.005, 5712330.727, 278.666, 236),</span>
+<span class="co">#   c(&quot;S10&quot;, 566597.088, 5712312.878, 274.012, 231),</span>
+<span class="co">#   c(&quot;S11&quot;, 566579.563, 5712357.726, 274.214, 231),</span>
+<span class="co">#   c(&quot;S12&quot;, 566559.544, 5712277.190, 269.066, 226),</span>
+<span class="co">#   c(&quot;S03&quot;, 566736.672, 5712468.201, 299.619, 257),</span>
+<span class="co">#   c(&quot;S04&quot;, 566726.730, 5712413.092, 291.878, 247),</span>
+<span class="co">#   c(&quot;S05&quot;, 566775.776, 5712368.935, 289.469, 247),</span>
+<span class="co">#   c(&quot;S07&quot;, 566708.123, 5712339.471, 282.419, 239))</span>
+<span class="co"># names(reference.data) &lt;- c(1:12)</span>
+<span class="co"># </span>
+<span class="co"># reference.data &lt;- as.data.frame(t(reference.data))</span>
+<span class="co"># </span>
+<span class="co"># names(reference.data) &lt;- c(&quot;plot&quot;,&quot;ostwert&quot;,&quot;nordwert&quot;,&quot;hoehe_z&quot;, &quot;hoehe&quot;)</span>
+<span class="co"># </span>
+<span class="co"># reference.data$ostwert = as.numeric(levels(reference.data$ostwert))[reference.data$ostwert]</span>
+<span class="co"># reference.data$nordwert = as.numeric(levels(reference.data$nordwert))[reference.data$nordwert]</span>
+<span class="co"># reference.data$hoehe_z = as.numeric(levels(reference.data$hoehe_z))[reference.data$hoehe_z]</span>
+<span class="co"># reference.data$hoehe = as.numeric(levels(reference.data$hoehe))[reference.data$hoehe]</span>
+<span class="co"># </span>
+<span class="co"># write.csv(reference.data,here(&quot;raw_data\\reference_data.csv&quot;), row.names = FALSE)</span>
+
+<span class="co"># read data</span>
+reference.data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="kw">here</span>(<span class="st">&quot;raw_data/reference_data.csv&quot;</span>))</code></pre></div>
+<p><strong>Auswahl der Untersuchungsdaten</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plotnumber =<span class="st"> &quot;S09&quot;</span>
+devicetype =<span class="st"> &quot;SamsungGalaxyTabA&quot;</span>
+
+
+reference &lt;-<span class="st"> </span>reference.data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(plot <span class="op">==</span><span class="st"> </span>plotnumber)
+
+dat &lt;-<span class="st"> </span>dataset <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(plot <span class="op">==</span><span class="st"> </span>plotnumber, 
+                          device <span class="op">==</span><span class="st"> </span>devicetype)</code></pre></div>
+</div>
+<div id="datenvorprozessierung" class="section level1">
+<h1><span class="header-section-number">2</span> Datenvorprozessierung</h1>
+<p><strong>Reprojektion der Referenzdaten</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># project data from UTM easting northing to latlon</span>
+ref.utm &lt;-<span class="st"> </span><span class="kw">SpatialPointsDataFrame</span>(<span class="dt">coords =</span> <span class="kw">data.frame</span>(reference<span class="op">$</span>ostwert, reference<span class="op">$</span>nordwert), 
+                                  <span class="dt">proj4string =</span> <span class="kw">CRS</span>(<span class="st">&quot;+proj=utm +zone=32 +datum=WGS84&quot;</span>),
+                                  <span class="dt">data =</span> <span class="kw">data.frame</span>(reference<span class="op">$</span>hoehe_z, reference<span class="op">$</span>hoehe))  
+reference &lt;-<span class="st"> </span><span class="kw">spTransform</span>(ref.utm, <span class="kw">CRS</span>(<span class="st">&quot;+proj=longlat +datum=WGS84&quot;</span>))</code></pre></div>
+<p><strong>Auswahl des GPGGA Signals</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#filter for GGA - essential fix data which provide 3D location and accuracy data.</span>
+GPGGA &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(V1 <span class="op">==</span><span class="st"> &quot;$GPGGA&quot;</span>) 
+
+<span class="co">#remove empty columns</span>
+GPGGA &lt;-<span class="st"> </span><span class="kw">Filter</span>(<span class="cf">function</span>(x) <span class="op">!</span>(<span class="kw">all</span>(x<span class="op">==</span><span class="st">&quot;&quot;</span>)), GPGGA)</code></pre></div>
+<p><strong>Vorprozessierung der gemessenen Daten</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># rename columns based on meaning (from http://www.gpsinformation.org/dale/nmea.htm#GGA)</span>
+<span class="kw">names</span>(GPGGA) =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;datatype&quot;</span>,
+                 <span class="st">&quot;time&quot;</span>,
+                 <span class="st">&quot;lat&quot;</span>,
+                 <span class="st">&quot;lat_direction&quot;</span>,
+                 <span class="st">&quot;lon&quot;</span>,
+                 <span class="st">&quot;lon_direction&quot;</span>,
+                 <span class="st">&quot;quality&quot;</span>,
+                 <span class="st">&quot;satellites&quot;</span>,
+                 <span class="st">&quot;HDOP&quot;</span>,
+                 <span class="st">&quot;altitude&quot;</span>,
+                 <span class="st">&quot;altitude_unit&quot;</span>,
+                 <span class="st">&quot;h_geoid&quot;</span>,
+                 <span class="st">&quot;h_geoid_unit&quot;</span>,
+                 <span class="st">&quot;checksum&quot;</span>,
+                 <span class="st">&quot;filename&quot;</span>,
+                 <span class="st">&quot;plot&quot;</span>,
+                 <span class="st">&quot;device&quot;</span>)
+
+<span class="co"># reformat data</span>
+GPGGA<span class="op">$</span>datatype =<span class="st"> </span><span class="kw">as.factor</span>(GPGGA<span class="op">$</span>datatype)
+GPGGA<span class="op">$</span>time =<span class="st">  </span><span class="kw">as.POSIXct</span>(<span class="kw">as.character</span>(GPGGA<span class="op">$</span>time), <span class="dt">tz =</span> <span class="st">&quot;CET&quot;</span>, <span class="dt">format =</span> <span class="st">&quot;%H%M%S&quot;</span>) 
+GPGGA<span class="op">$</span>lat =<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">levels</span>(GPGGA<span class="op">$</span>lat))[GPGGA<span class="op">$</span>lat]
+GPGGA<span class="op">$</span>lat_direction =<span class="st"> </span><span class="kw">as.factor</span>(GPGGA<span class="op">$</span>lat_direction)
+GPGGA<span class="op">$</span>lon =<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">levels</span>(GPGGA<span class="op">$</span>lon))[GPGGA<span class="op">$</span>lon]
+GPGGA<span class="op">$</span>lon_direction =<span class="st"> </span><span class="kw">as.factor</span>(GPGGA<span class="op">$</span>lon_direction)
+GPGGA<span class="op">$</span>quality =<span class="st"> </span><span class="kw">as.factor</span>(GPGGA<span class="op">$</span>quality)
+GPGGA<span class="op">$</span>satellites =<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">levels</span>(GPGGA<span class="op">$</span>satellites))[GPGGA<span class="op">$</span>satellites]
+GPGGA<span class="op">$</span>HDOP =<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">is.numeric</span>(GPGGA<span class="op">$</span>HDOP), GPGGA<span class="op">$</span>HDOP, <span class="kw">as.numeric</span>(<span class="kw">levels</span>(GPGGA<span class="op">$</span>HDOP))[GPGGA<span class="op">$</span>HDOP])
+GPGGA<span class="op">$</span>altitude =<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">levels</span>(GPGGA<span class="op">$</span>altitude))[GPGGA<span class="op">$</span>altitude]
+GPGGA<span class="op">$</span>altitude_unit =<span class="st"> </span><span class="kw">as.factor</span>(GPGGA<span class="op">$</span>altitude_unit)
+GPGGA<span class="op">$</span>h_geoid =<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">levels</span>(GPGGA<span class="op">$</span>HDOP))[GPGGA<span class="op">$</span>h_geoid]
+GPGGA<span class="op">$</span>h_geoid_unit =<span class="st"> </span><span class="kw">as.factor</span>(GPGGA<span class="op">$</span>h_geoid_unit)
+GPGGA<span class="op">$</span>checksum =<span class="st"> </span><span class="kw">as.factor</span>(GPGGA<span class="op">$</span>checksum)
+
+
+<span class="co"># convert gnss lat/lon from DDMM.MMMMM to DD.DDDDDD (decimal degrees)</span>
+convertISO6709 &lt;-<span class="st"> </span><span class="cf">function</span>( DDMM.MMMMM) {
+  <span class="co"># It&#39;s simpler to do the arithmetic on positive numbers, we&#39;ll add the signs</span>
+  <span class="co">#  back in at the end.</span>
+  sgns   &lt;-<span class="st"> </span><span class="kw">sign</span>(DDMM.MMMMM)
+  latlon &lt;-<span class="st"> </span><span class="kw">abs</span>(DDMM.MMMMM)
+  <span class="co"># grab the MM.MMMM bit, which is always &lt;100. &#39;%%&#39; is modular arithmetic.</span>
+  mm &lt;-<span class="st"> </span>latlon <span class="op">%%</span><span class="st"> </span><span class="dv">100</span>
+  
+  <span class="co"># grab the DD bit. Divide by 100 because of the MM.MMMM bit.</span>
+  dd &lt;-<span class="st"> </span>(latlon <span class="op">-</span><span class="st"> </span>mm)<span class="op">/</span><span class="dv">100</span>
+  
+  <span class="co"># convert to decimal degrees, don&#39;t forget to add the signs back!</span>
+  out_latlon &lt;-<span class="st"> </span>(dd<span class="op">+</span>mm<span class="op">/</span><span class="dv">60</span>) <span class="op">*</span><span class="st"> </span>sgns
+  <span class="kw">return</span>(out_latlon)
+}
+
+GPGGA[,<span class="st">&quot;lat&quot;</span>]&lt;-<span class="st"> </span><span class="kw">convertISO6709</span>(GPGGA[,<span class="st">&quot;lat&quot;</span>])
+GPGGA[,<span class="st">&quot;lon&quot;</span>] &lt;-<span class="st"> </span><span class="kw">convertISO6709</span>(GPGGA[,<span class="st">&quot;lon&quot;</span>])
+
+m &lt;-<span class="st"> </span>GPGGA <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(quality <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(time) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">slice</span>(<span class="op">-</span><span class="dv">1</span><span class="op">:-</span><span class="dv">4</span>)</code></pre></div>
+<p><strong>Berechnung von Kennwerten</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ref_h =<span class="st"> </span>reference<span class="op">@</span>data<span class="op">$</span>reference.hoehe
+ref_N =<span class="st"> </span>reference<span class="op">@</span>coords[<span class="dv">2</span>]
+ref_E =<span class="st"> </span>reference<span class="op">@</span>coords[<span class="dv">1</span>]
+
+<span class="co"># Abweichung Nord: dev_N = N - ref_N          </span>
+dev_N =<span class="st"> </span>m<span class="op">$</span>lat <span class="op">-</span><span class="st"> </span>ref_N  
+<span class="co"># Abweichung Ost:  dev_E = E - ref_E </span>
+dev_E =<span class="st"> </span>m<span class="op">$</span>lon <span class="op">-</span><span class="st"> </span>ref_E 
+<span class="co"># Abweichung H?he: dev_h = h - ref_h</span>
+dev_h =<span class="st"> </span>m<span class="op">$</span>altitude <span class="op">-</span><span class="st"> </span>ref_h
+<span class="co"># Abweichung Horizonttal Referenz : dev_hori_ref = sqrt(dev_E^2 + dev_N^2)</span>
+dev_hori_ref =<span class="st"> </span><span class="kw">sqrt</span>(dev_E<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>dev_N<span class="op">^</span><span class="dv">2</span>)
+<span class="co"># Mittelwert Nord: mean_N = mean(N)</span>
+mean_N =<span class="st"> </span><span class="kw">mean</span>(m<span class="op">$</span>lat)
+<span class="co"># Mittelwert Ost: mean_E = mean(E)</span>
+mean_E =<span class="st"> </span><span class="kw">mean</span>(m<span class="op">$</span>lon)
+<span class="co"># Mittelwert H?he: mean_h = mean(h)</span>
+mean_h =<span class="st"> </span><span class="kw">mean</span>(m<span class="op">$</span>altitude)
+<span class="co"># Abweichung Horizonttal Mittel : dev_hori_mean = sqrt((E - mean_E)^2 + (N - mean_N)^2) </span>
+dev_hori_mean =<span class="st"> </span><span class="kw">sqrt</span>((m<span class="op">$</span>lon <span class="op">-</span><span class="st"> </span>mean_E)<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>(m<span class="op">$</span>lat <span class="op">-</span><span class="st"> </span>mean_N)<span class="op">^</span><span class="dv">2</span>) 
+<span class="co"># Systematische Nordabweichung: dev_sys_N = mean_N - ref_N</span>
+dev_sys_N =<span class="st"> </span>mean_N <span class="op">-</span><span class="st"> </span>ref_N
+<span class="co"># Systematische Nordabweichung meter</span>
+dev_sys_N_meter =<span class="st"> </span><span class="kw">mean</span>(<span class="kw">distm</span> (<span class="dt">x =</span> <span class="kw">data.frame</span>(ref_E, m<span class="op">$</span>lat), <span class="dt">y =</span> <span class="kw">c</span>(ref_E, ref_N), <span class="dt">fun =</span> distHaversine))
+<span class="co"># Systematische Ostabweichung: dev_sys_E = mean_E - ref_E </span>
+dev_sys_E =<span class="st"> </span>mean_E <span class="op">-</span><span class="st"> </span>ref_E
+<span class="co"># Systematische Ostabweichung meter</span>
+dev_sys_E_meter =<span class="st"> </span><span class="kw">mean</span>(<span class="kw">distm</span> (<span class="dt">x =</span> <span class="kw">data.frame</span>(m<span class="op">$</span>lon, ref_N), <span class="dt">y =</span> <span class="kw">c</span>(ref_E, ref_N), <span class="dt">fun =</span> distHaversine))
+<span class="co"># Systematische H?henabweichung: dev_sys_h = mean_h - ref_h  </span>
+dev_sys_h =<span class="st"> </span>mean_h <span class="op">-</span><span class="st"> </span>ref_h  
+<span class="co"># Systematische Horizontalabweichung: dev_sys_hori = sqrt(dev_sys_E^2 + dev_sys_N^2)</span>
+dev_sys_hori =<span class="st"> </span><span class="kw">sqrt</span>(dev_sys_E<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>dev_sys_N<span class="op">^</span><span class="dv">2</span>)
+<span class="co"># Circular Error Probability (CEP) The radius of circle centered at the true position, containing the position estimate with probability of 50%. </span>
+cep =<span class="st"> </span><span class="fl">0.62</span><span class="op">*</span><span class="kw">sd</span>(m<span class="op">$</span>lat)<span class="op">+</span><span class="fl">0.56</span><span class="op">*</span><span class="kw">sd</span>(m<span class="op">$</span>lon)
+<span class="co">#calculate distance for each measurement to according reference location</span>
+m[ ,<span class="st">&quot;distance&quot;</span>] &lt;-<span class="st"> </span><span class="kw">distm</span> (<span class="dt">x =</span> <span class="kw">data.frame</span>(m<span class="op">$</span>lon, m<span class="op">$</span>lat),
+                                           <span class="dt">y =</span> <span class="kw">c</span>(ref_E, ref_N), 
+                                           <span class="dt">fun =</span> distHaversine)
+<span class="co"># distance between median value and reference value</span>
+ref_to_median =<span class="st"> </span><span class="kw">distm</span> (<span class="dt">x =</span> <span class="kw">data.frame</span>(<span class="kw">median</span>(m<span class="op">$</span>lon), <span class="kw">median</span>(m<span class="op">$</span>lat)),
+                                           <span class="dt">y =</span> <span class="kw">c</span>(ref_E, ref_N), 
+                                           <span class="dt">fun =</span> distHaversine)</code></pre></div>
+</div>
+<div id="datenauswertung" class="section level1">
+<h1><span class="header-section-number">3</span> Datenauswertung</h1>
+<div id="datentabelle" class="section level2">
+<h2><span class="header-section-number">3.1</span> Datentabelle</h2>
+<p>Auszug der Datentabelle des NMEA Signals. Gefiltert nach GPS fix Daten zur Positionsbestimmung ($GPGGA).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dt &lt;-<span class="st"> </span>m <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>lon_direction,<span class="op">-</span>lat_direction,<span class="op">-</span>distance, <span class="op">-</span>filename, <span class="op">-</span>plot, <span class="op">-</span>device) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(quality <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>)
+
+<span class="kw">names</span>(dt)[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="kw">names</span>(dt)[<span class="dv">1</span>], 
+                                <span class="kw">footnote_marker_symbol</span>(<span class="dv">1</span>))
+<span class="kw">tail</span>(dt) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">kable</span>(<span class="dt">escape =</span> F) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="kw">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>, <span class="st">&quot;responsive&quot;</span>), <span class="dt">font_size =</span> <span class="dv">12</span>, <span class="dt">fixed_thead =</span> T) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">footnote</span>(<span class="dt">symbol =</span>  <span class="st">&quot;filtered for GPS Fix Data (GPGGA)&quot;</span> )</code></pre></div>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+datatype<sup>*</sup>
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+time
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+lat
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+lon
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+quality
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+satellites
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+HDOP
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+altitude
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+altitude_unit
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+h_geoid
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+h_geoid_unit
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+checksum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+266
+</td>
+<td style="text-align:left;">
+$GPGGA
+</td>
+<td style="text-align:left;">
+2019-08-23 14:07:31
+</td>
+<td style="text-align:right;">
+51.55812
+</td>
+<td style="text-align:right;">
+9.961451
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+233.5
+</td>
+<td style="text-align:left;">
+M
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+M
+</td>
+<td style="text-align:left;">
+*5B
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+267
+</td>
+<td style="text-align:left;">
+$GPGGA
+</td>
+<td style="text-align:left;">
+2019-08-23 14:07:32
+</td>
+<td style="text-align:right;">
+51.55812
+</td>
+<td style="text-align:right;">
+9.961451
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+233.5
+</td>
+<td style="text-align:left;">
+M
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+M
+</td>
+<td style="text-align:left;">
+*59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+268
+</td>
+<td style="text-align:left;">
+$GPGGA
+</td>
+<td style="text-align:left;">
+2019-08-23 14:07:33
+</td>
+<td style="text-align:right;">
+51.55812
+</td>
+<td style="text-align:right;">
+9.961451
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+233.5
+</td>
+<td style="text-align:left;">
+M
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+M
+</td>
+<td style="text-align:left;">
+*57
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+269
+</td>
+<td style="text-align:left;">
+$GPGGA
+</td>
+<td style="text-align:left;">
+2019-08-23 14:07:34
+</td>
+<td style="text-align:right;">
+51.55812
+</td>
+<td style="text-align:right;">
+9.961451
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+233.5
+</td>
+<td style="text-align:left;">
+M
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+M
+</td>
+<td style="text-align:left;">
+*57
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+270
+</td>
+<td style="text-align:left;">
+$GPGGA
+</td>
+<td style="text-align:left;">
+2019-08-23 14:07:35
+</td>
+<td style="text-align:right;">
+51.55812
+</td>
+<td style="text-align:right;">
+9.961451
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+233.5
+</td>
+<td style="text-align:left;">
+M
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+M
+</td>
+<td style="text-align:left;">
+*59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+271
+</td>
+<td style="text-align:left;">
+$GPGGA
+</td>
+<td style="text-align:left;">
+2019-08-23 14:07:36
+</td>
+<td style="text-align:right;">
+51.55812
+</td>
+<td style="text-align:right;">
+9.961451
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+233.5
+</td>
+<td style="text-align:left;">
+M
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+M
+</td>
+<td style="text-align:left;">
+*5B
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup>*</sup> filtered for GPS Fix Data (GPGGA)
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div id="breitengrad" class="section level2">
+<h2><span class="header-section-number">3.2</span> Breitengrad</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m <span class="op">%&gt;%</span>
+<span class="st">  </span>
+<span class="st">  </span><span class="kw">ggplot</span>()<span class="op">+</span>
+<span class="st">   </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x=</span>time, <span class="dt">y=</span>lat, <span class="dt">color=</span> satellites)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_viridis_c</span>(<span class="dt">option=</span><span class="st">&quot;magma&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> ref_N, <span class="dt">linetype=</span><span class="st">&quot;dotted&quot;</span>, 
+                <span class="dt">color =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">size=</span> <span class="fl">0.8</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="gnss_analysis_files/figure-html/plot.lat-1.png" width="672" /></p>
+<p>Systematische Nordabweichung: 0.0000078 Grad<br />
+Die mittlere Abweichung des Breitengrads betraegt 0.87 m</p>
+</div>
+<div id="laengengrad" class="section level2">
+<h2><span class="header-section-number">3.3</span> Laengengrad</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m <span class="op">%&gt;%</span>
+<span class="st">  </span>
+<span class="st">  </span><span class="kw">ggplot</span>()<span class="op">+</span>
+<span class="st">   </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x=</span>time, <span class="dt">y=</span>lon, <span class="dt">color=</span> satellites)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_viridis_c</span>(<span class="dt">option=</span><span class="st">&quot;magma&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> ref_E, <span class="dt">linetype=</span><span class="st">&quot;dotted&quot;</span>, 
+                <span class="dt">color =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">size=</span> <span class="fl">0.8</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="gnss_analysis_files/figure-html/plot.lon-1.png" width="672" /></p>
+<p>Systematische Ostabweichung: 0.000019<br />
+Die mittlere Abweichung des Laengengrads betraegt 1.3 m</p>
+</div>
+<div id="hoehe-a.s.l." class="section level2">
+<h2><span class="header-section-number">3.4</span> Hoehe (a.s.l.)</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m <span class="op">%&gt;%</span>
+<span class="st">  </span>
+<span class="st">  </span><span class="kw">ggplot</span>()<span class="op">+</span>
+<span class="st">   </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x=</span>time, <span class="dt">y=</span>altitude, <span class="dt">color=</span> satellites)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_viridis_c</span>(<span class="dt">option=</span><span class="st">&quot;magma&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> ref_h, <span class="dt">linetype=</span><span class="st">&quot;dotted&quot;</span>, 
+                <span class="dt">color =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">size=</span> <span class="fl">0.8</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="gnss_analysis_files/figure-html/plot.alt-1.png" width="672" /></p>
+<p>Die systematische Hoehenabweichung betraegt -2.4 m</p>
+</div>
+<div id="position" class="section level2">
+<h2><span class="header-section-number">3.5</span> Position</h2>
+<p>Messungen ueberlagert auf UAV-Orthophoto</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#load uav</span>
+uav &lt;-<span class="st"> </span><span class="kw">stack</span>(<span class="kw">here</span>(<span class="st">&quot;raw_data/uav/orthomosaik.tif&quot;</span>))
+
+sp&lt;-<span class="kw">SpatialPointsDataFrame</span>(<span class="dt">coords =</span> <span class="kw">data.frame</span>(m<span class="op">$</span>lon,m<span class="op">$</span>lat), <span class="dt">data=</span>m, <span class="dt">proj4string =</span> <span class="kw">CRS</span>(<span class="st">&quot;+proj=longlat +datum=WGS84&quot;</span>))
+sp.utm =<span class="st"> </span><span class="kw">spTransform</span>(sp,<span class="kw">crs</span>(uav))
+
+ext =<span class="st"> </span><span class="kw">extent</span>(<span class="kw">min</span>(sp.utm<span class="op">@</span>coords[,<span class="dv">1</span>])<span class="op">-</span>(<span class="kw">max</span>(sp.utm<span class="op">@</span>coords[,<span class="dv">1</span>])<span class="op">-</span><span class="kw">min</span>(sp.utm<span class="op">@</span>coords[,<span class="dv">1</span>]))<span class="op">/</span><span class="dv">2</span>,<span class="kw">max</span>(sp.utm<span class="op">@</span>coords[,<span class="dv">1</span>])<span class="op">+</span>(<span class="kw">max</span>(sp.utm<span class="op">@</span>coords[,<span class="dv">1</span>])<span class="op">-</span><span class="kw">min</span>(sp.utm<span class="op">@</span>coords[,<span class="dv">1</span>]))<span class="op">/</span><span class="dv">2</span>,
+             <span class="kw">min</span>(sp.utm<span class="op">@</span>coords[,<span class="dv">2</span>])<span class="op">-</span>(<span class="kw">max</span>(sp.utm<span class="op">@</span>coords[,<span class="dv">2</span>])<span class="op">-</span><span class="kw">min</span>(sp.utm<span class="op">@</span>coords[,<span class="dv">2</span>]))<span class="op">/</span><span class="dv">2</span>,<span class="kw">max</span>(sp.utm<span class="op">@</span>coords[,<span class="dv">2</span>])<span class="op">+</span>(<span class="kw">max</span>(sp.utm<span class="op">@</span>coords[,<span class="dv">2</span>])<span class="op">-</span><span class="kw">min</span>(sp.utm<span class="op">@</span>coords[,<span class="dv">2</span>]))<span class="op">/</span><span class="dv">2</span>)
+
+uavcrop &lt;-<span class="st"> </span><span class="kw">crop</span>(<span class="dt">x=</span> uav, <span class="dt">y=</span> ext)
+
+<span class="kw">plotRGB</span>(uavcrop,
+        <span class="dt">r =</span> <span class="dv">1</span>, <span class="dt">g =</span> <span class="dv">2</span>, <span class="dt">b =</span> <span class="dv">3</span>,
+        <span class="dt">stretch =</span> <span class="st">&quot;lin&quot;</span>)
+
+<span class="kw">plot</span>(sp.utm, <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>,  <span class="dt">add =</span> <span class="ot">TRUE</span>)
+
+<span class="kw">plot</span>(ref.utm, <span class="dt">pch=</span><span class="dv">10</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">cex=</span><span class="fl">1.5</span>,  <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="gnss_analysis_files/figure-html/otho.pos-1.png" width="672" /></p>
+<p>Aus GPS Daten geloggte Positionen im Laufe der Messungen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># bbox= c(left = median(m$lon)-(max(m$lon)-min(m$lon))/2,</span>
+<span class="co">#         bottom =  median(m$lat)-(max(m$lat)-min(m$lat))/2,</span>
+<span class="co">#         right = median(m$lon)+(max(m$lon)-min(m$lon))/2,</span>
+<span class="co">#         top = median(m$lat)+(max(m$lat)-min(m$lat))/2)</span>
+
+bbox=<span class="st"> </span><span class="kw">c</span>(<span class="dt">left =</span> <span class="kw">min</span>(m<span class="op">$</span>lon), <span class="dt">bottom =</span>  <span class="kw">min</span>(m<span class="op">$</span>lat), <span class="dt">right =</span> <span class="kw">max</span>(m<span class="op">$</span>lon), <span class="dt">top =</span> <span class="kw">max</span>(m<span class="op">$</span>lat))
+
+map &lt;-<span class="st"> </span><span class="kw">ggmap</span>(<span class="kw">get_stamenmap</span>(bbox, <span class="dt">zoom =</span> <span class="dv">18</span>, <span class="dt">maptype =</span> <span class="st">&quot;toner-lite&quot;</span>, <span class="dt">crop=</span>F))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> m, <span class="kw">aes</span>(<span class="dt">x =</span> lon, <span class="dt">y =</span> lat, <span class="dt">color=</span>satellites), <span class="dt">shape =</span> <span class="dv">20</span>, <span class="dt">size=</span> <span class="dv">3</span>, <span class="dt">alpha=</span><span class="dv">1</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> m, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">median</span>(m<span class="op">$</span>lon), <span class="dt">y =</span> <span class="kw">median</span>(m<span class="op">$</span>lat)), <span class="dt">shape =</span> <span class="dv">20</span>, <span class="dt">color=</span><span class="st">&quot;Red&quot;</span>, <span class="dt">size=</span><span class="dv">3</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="kw">median</span>(m<span class="op">$</span>lon), <span class="dt">y =</span> <span class="kw">median</span>(m<span class="op">$</span>lat), <span class="dt">hjust=</span><span class="dv">0</span>,<span class="dt">vjust=</span><span class="dv">1</span>,  <span class="dt">label =</span> <span class="st">&quot;Median&quot;</span>,<span class="dt">color=</span><span class="st">&quot;Red&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">x =</span> ref_E, <span class="dt">y =</span> ref_N, <span class="dt">shape =</span> <span class="dv">20</span>, <span class="dt">color=</span><span class="st">&quot;Blue&quot;</span>, <span class="dt">size=</span><span class="dv">3</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> ref_E, <span class="dt">y =</span> ref_N, <span class="dt">hjust=</span><span class="dv">0</span>,<span class="dt">vjust=</span><span class="op">-</span><span class="dv">1</span>, <span class="dt">label =</span> <span class="st">&quot;Referenz&quot;</span>,<span class="dt">color=</span><span class="st">&quot;Blue&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_viridis_c</span>(<span class="dt">option=</span><span class="st">&quot;magma&quot;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>()
+
+map <span class="op">+</span>
+<span class="st">  </span><span class="kw">transition_time</span>(m<span class="op">$</span>time) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Time: {frame_time}&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">shadow_mark</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>, <span class="dt">size =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="gnss_analysis_files/figure-html/anim.pos-1.gif" /><!-- --></p>
+</div>
+<div id="entfernung-zum-referenzpunkt" class="section level2">
+<h2><span class="header-section-number">3.6</span> Entfernung zum Referenzpunkt</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#plot distance from reference location as histogram</span>
+p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(m, <span class="kw">aes</span>(distance)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth=</span><span class="fl">0.5</span>, <span class="dt">alpha=</span>.<span class="dv">5</span>, <span class="dt">color=</span><span class="st">&quot;white&quot;</span>)<span class="op">+</span>
+<span class="st"> </span><span class="co"># geom_density()+</span>
+<span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">max</span>(m<span class="op">$</span>distance))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="kw">mean</span>(m<span class="op">$</span>distance), <span class="dt">linetype=</span><span class="st">&quot;dotted&quot;</span>, 
+                <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size=</span> <span class="fl">0.8</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="kw">mean</span>(m<span class="op">$</span>distance), <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">hjust=</span> <span class="op">-</span><span class="fl">0.5</span>, <span class="dt">vjust =</span><span class="op">-</span><span class="fl">0.5</span>, <span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">label =</span> <span class="st">&quot;mittlere Entfernung&quot;</span>,<span class="dt">color=</span><span class="st">&quot;Red&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_classic</span>() 
+
+p</code></pre></div>
+<p><img src="gnss_analysis_files/figure-html/plot.dist-1.png" width="672" /></p>
+<p>Systematische Horizontalabweichung: 0.000021 Grad<br />
+Im Mittel betraegt die Entfernung der Messungen zum Referenzpunkt 1.6 m<br />
+Die Abweichung zwischen Referenzpunkt und dem Median der Messung betraegt 1.7 m</p>
+</div>
+</div>
+
+&nbsp;
+<hr />
+<p style="text-align: center;"><span style="color: #808080;"><em>A work by Jens Wiesehahn</em></span></p>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+	<a href="mailto:wiesehahn.jens@gmail.com" class="fa fa-envelope"></a>
+    <a href="https://github.com/wiesehahn/" class="fa fa-github"></a>
+</p>
+
+&nbsp;
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
