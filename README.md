@@ -1,6 +1,8 @@
 # GNSS Analysis
 **Analysis of GNSS signals received by mobile devices in university class**
 
+project website: https://wiesehahn.github.io/gnss_analysis/index.html
+
 ## Data collection
 During lectures on GNSS signals data was collected using different mobile devices at 12 reference positions. The data was logged for at least 1 minute using the app "GPSLogger". 
 
